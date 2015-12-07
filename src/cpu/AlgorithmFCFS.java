@@ -7,9 +7,12 @@ import java.util.ArrayList;
  * @author JOSÉ WELLITON NUNES JUNIOR
  */
 public class AlgorithmFCFS extends Algorithm{
-    private final CriarLog1 log1;
-    private final CriarLog2 log2;
-    private final CriarLog3 log3;
+    private /*@ spec_public nullable @*/ final CriarLog1 log1; //@ in Clog1;
+    //@ private represents Clog1 <- this.log1;
+    private /*@ spec_public nullable @*/ final CriarLog2 log2; //@ in Clog2;
+    //@ private represents Clog2 <- this.log2;
+    private /*@ spec_public nullable @*/ final CriarLog3 log3; //@ in Clog3;
+    //@ private represents Clog3 <- this.log3;
     /**
      *Método construtor da classe AlgorithmFCFS.
      * @param pathFile Representa o caminho do arquivo processos.dat
@@ -132,8 +135,10 @@ public class AlgorithmFCFS extends Algorithm{
     /**
      * Método responsável por rodar o algoritmo.
      */
-    @SuppressWarnings("unchecked")
 	@Override
+	/*@
+	 @ 
+	 @*/
     public void run() {
         do{
             novo();
@@ -151,7 +156,7 @@ public class AlgorithmFCFS extends Algorithm{
      * Método responsável por fechar todos os arquivos de log abertos por esse algoritmo.
      */
     @Override
-    public void close(){
+    public /*@ pure @*/ void close(){
         this.log1.close();
         this.log2.close();
         this.log3.close();

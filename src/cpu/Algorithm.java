@@ -9,6 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public abstract class Algorithm {
+	//@ public model instance CriarLog1 Clog1;
+	//@ public model instance CriarLog2 Clog2;
+	//@ public model instance CriarLog3 Clog3;
+	
     protected /*@ spec_public nullable @*/ int executionTime = 0,timeSystem = 0, executionTimeTotal = 0;
     //@ public invariant 0 <= executionTime; 
 	//@ public invariant 0 <= timeSystem;
@@ -63,20 +67,24 @@ public abstract class Algorithm {
      * Método construtor da classe Algorithm.
      * @param pathFile Representa o caminho do arquivo .dat a ser lido.
      */
-    /*@ public normal_behavior
-     @ requires pathFile != null;
-     @ assignable this.FilaEstadoNovo;
-     @ assignable this.FilaEstadoPronto;
-     @ assignable this.FilaEstadoEspera;
-     @ assignable this.FilaEstadoFinalizado;
-     @ assignable this.memoryProcess;
-     @ ensures this.FilaEstadoNovo != null;
-     @ ensures this.FilaEstadoPronto != null;
-     @ ensures this.FilaEstadoEspera != null;
-     @ ensures this.FilaEstadoFinalizado != null;
-     @ ensures this.memoryProcess != null && 
-     @		(\forall int i; 0 <= i && i < memoryProcess.size(); memoryProcess.get(i) != null);
-     @ ensures this.nProcessos == this.memoryProcess.size();
+    /*@ 	public normal_behavior
+     @ 			requires pathFile != null;
+     @ 			assignable this.FilaEstadoNovo;
+     @ 			assignable this.FilaEstadoPronto;
+     @ 			assignable this.FilaEstadoEspera;
+     @ 			assignable this.FilaEstadoFinalizado;
+     @ 			assignable this.memoryProcess;
+     @ 			ensures this.FilaEstadoNovo != null;
+     @ 			ensures this.FilaEstadoPronto != null;
+     @ 			ensures this.FilaEstadoEspera != null;
+     @ 			ensures this.FilaEstadoFinalizado != null;
+     @ 			ensures this.memoryProcess != null && 
+     @			(\forall int i; 0 <= i && i < memoryProcess.size(); memoryProcess.get(i) != null);
+     @			ensures this.nProcessos == this.memoryProcess.size();
+     @	also
+     @		public exceptional_behavior
+     @			requires pathFile == null;
+     @			assignable \nothing;
      @*/
     public Algorithm(String pathFile){
         this.FilaEstadoNovo = new ArrayList<>();
@@ -103,17 +111,38 @@ public abstract class Algorithm {
         } 
     }
     
+    /*@
+     @ 
+     @*/
     protected abstract void novo();
     
+    /*@
+    @ 
+    @*/
     protected abstract void espera();
     
+    /*@
+    @ 
+    @*/
     protected abstract void executar();
     
+    /*@
+    @ 
+    @*/
     protected abstract void pronto();
     
+    /*@
+    @ 
+    @*/
     protected abstract void finalizado();
     
+    /*@	requires Clog2 != null && Clog3 != null;
+    @	assignable \nothing;
+    @*/
     public abstract void run();
     
-    public abstract void close();
+    /*@ requires Clog1 != null && Clog2 != null && Clog3 != null;
+    @ assignable \nothing;
+    @*/
+    public /*@ pure @*/ abstract void close();
 }

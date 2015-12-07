@@ -5,7 +5,7 @@ package cpu;
  */
 public class Processo {
     public static final int NOVO = 0;
-    public static final int PRONTO = 1;
+    public static final int PRONTO = 1; 
     public static final int EXECUTANDO = 2;
     public static final int ESPERA = 3;
     public static final int FINALIZADO = 4;
@@ -215,7 +215,7 @@ public class Processo {
     }
     
     /*@ 	requires this.estado == 4 && (0 < this.picos.length); 
-     @  	assignable this.aux;
+     @  	assignable this.aux; 
      @  	ensures this.aux == 0;
      @  	ensures (\forall int i; 0 < i && i <= this.picos.length; this.aux == \old(this.aux) + this.picos[i]);
      @  	ensures \result == this.aux + this.IOserviceTime;

@@ -66,8 +66,8 @@ public class CriarLog1 {
         }   
     }
     
-    /*@
-     @ 
+    /*@	requires this.output != null;
+     @ assignable \nothing;
      @*/
     public /*@ pure @*/ void close(){
         this.output.close();

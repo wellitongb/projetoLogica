@@ -8,9 +8,12 @@ import java.util.ArrayList;
  */
 public class AlgorithmRR extends Algorithm{
     private final int quantum;
-    private final CriarLog1 log1;
-    private final CriarLog2 log2;
-    private final CriarLog3 log3;
+    private /*@ spec_public nullable @*/ final CriarLog1 log1; //@ in Clog1;
+    //@ private represents Clog1 <- this.log1;
+    private /*@ spec_public nullable @*/ final CriarLog2 log2; //@ in Clog2;
+    //@ private represents Clog2 <- this.log2;
+    private /*@ spec_public nullable @*/ final CriarLog3 log3; //@ in Clog3;
+    //@ private represents Clog3 <- this.log3;
     /**
      * Método Construtor da Classe AlgorithmRR.
      * @param pathFile Representa o caminho do arquivo "processos.dat". 
@@ -161,7 +164,7 @@ public class AlgorithmRR extends Algorithm{
      * Método responsável por fechar todos os arquivos de log abertos por esse algoritmo.
      */
     @Override
-    public void close(){
+    public /*@ pure @*/ void close(){
         log1.close();
         log2.close();
         log3.close();
