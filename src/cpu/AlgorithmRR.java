@@ -1,6 +1,7 @@
 package cpu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Classe do algoritmo de escalonamento Round-Robin.
@@ -143,9 +144,13 @@ public class AlgorithmRR extends Algorithm{
         }
     }
     /**
-     * M√©todo respons√°vel por rodar o algoritmo.
+     * MÈtodo respons·vel por rodar o algoritmo.
      */
-    @SuppressWarnings("unchecked")
+    /*@ also
+    @		requires this.log2 != null && this.log3 != null && super.memoryProcess != null && super.FilaEstadoFinalizado != null;
+    @		assignable super.timeSystem;
+    @		ensures super.timeSystem == \old(super.timeSystem) + super.FilaEstadoFinalizado.size();
+    @*/
 	@Override
     public void run() {
         do{
@@ -155,13 +160,13 @@ public class AlgorithmRR extends Algorithm{
             espera();
             finalizado();
             super.timeSystem++;
-            this.log2.print(new ArrayList[]{super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado}, super.timeSystem);
+            this.log2.print(new ArrayList<ArrayList<Processo>>(Arrays.asList(super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado)), super.timeSystem);
         }while(super.memoryProcess.size() > super.FilaEstadoFinalizado.size());
-        this.log3.print(new ArrayList[]{super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado}, super.timeSystem, super.executionTimeTotal);
+        this.log3.print(new ArrayList<ArrayList<Processo>>(Arrays.asList(super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado)), super.timeSystem, super.executionTimeTotal);
     }
     
     /**
-     * M√©todo respons√°vel por fechar todos os arquivos de log abertos por esse algoritmo.
+     * MÈtodo respons·vel por fechar todos os arquivos de log abertos por esse algoritmo.
      */
     @Override
     public /*@ pure @*/ void close(){

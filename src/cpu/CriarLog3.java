@@ -63,25 +63,25 @@ public class CriarLog3 {
      * @throws NullPointerException Caso filas seja nulo.
      * @throws Error Caso o tamanho de filas seja diferente de 3.
      */
-    public void print(ArrayList<Processo>[] filas, int timeSystem, int executionTimeTotal){
+    public void print(ArrayList<ArrayList<Processo>> filas, int timeSystem, int executionTimeTotal){
         if(filas == null){
             throw new NullPointerException("Não foi passado as filas exigidas para impressão");
         }
-        if(filas.length != 3){
+        if(filas.size() != 3){
             throw new Error("Não foi passado o numero de filas exigidas para impressão");
         }
         else{
             this.output.println("Algoritmo de escalonamento usado: " + this.nome);
             this.output.println("Valor atual do Ciclo de CPU: " + timeSystem);
             int sumTimeExecutionGeral = 0, sumTimeWait = 0, sumTimeTurnaround = 0;
-            for(Processo element: filas[2]){
+            for(Processo element: filas.get(2)){
                 sumTimeExecutionGeral = sumTimeExecutionGeral + element.getTimeExecutionGeral();
                 sumTimeWait = sumTimeWait + element.getIOserviceTime();
                 sumTimeTurnaround = sumTimeTurnaround + element.getLifeTime();
             }
-            this.output.println("Tempo médio de Processamento: " + (sumTimeExecutionGeral/filas[2].size()));
-            this.output.println("Tempo médio de Espera: " + (sumTimeWait/filas[2].size()));
-            this.output.println("Tempo médio de Turnaround: " + (sumTimeTurnaround/filas[2].size()));
+            this.output.println("Tempo médio de Processamento: " + (sumTimeExecutionGeral/filas.get(2).size()));
+            this.output.println("Tempo médio de Espera: " + (sumTimeWait/filas.get(2).size()));
+            this.output.println("Tempo médio de Turnaround: " + (sumTimeTurnaround/filas.get(2).size()));
             this.output.println("Tempo total de ultilização da CPU: " + executionTimeTotal);
             this.output.print("Taxa percentual da ocupação da CPU: ");
             BigDecimal aux = new BigDecimal(executionTimeTotal*100).divide(new BigDecimal(timeSystem),3,RoundingMode.UP);

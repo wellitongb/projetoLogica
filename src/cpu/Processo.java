@@ -3,9 +3,9 @@ package cpu;
 /**
  * @author José Welliton Nunes Júnior
  */
-public class Processo {
+public class Processo { 
     public static final int NOVO = 0;
-    public static final int PRONTO = 1; 
+    public static final int PRONTO = 1;
     public static final int EXECUTANDO = 2;
     public static final int ESPERA = 3;
     public static final int FINALIZADO = 4;

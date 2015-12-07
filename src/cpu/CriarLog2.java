@@ -56,17 +56,17 @@ public class CriarLog2 {
      * @throws NullPointerException Caso filas seja nulo.
      * @throws Error Caso o tamanho de filas seja diferente de 3.
      */
-    public void print(ArrayList<Processo>[] filas, int timeSystem){
+    public void print(ArrayList<ArrayList<Processo>> filas, int timeSystem){
         if(filas == null){
             throw new NullPointerException("Não foi passado as filas exigidas para impressão");
         }
-        if(filas.length != 3){
+        if(filas.size() != 3){
             throw new Error("Não foi passado o numero de filas exigidas para impressão");
         }
         if(timeSystem%200 == 0){
-            this.output.print(filas[0].size() + " ");
-            this.output.print(filas[1].size() + " ");
-            this.output.println(filas[2].size() + " ");
+            this.output.print(filas.get(0).size() + " ");
+            this.output.print(filas.get(1).size() + " ");
+            this.output.println(filas.get(2).size() + " ");
         }
     }
 }

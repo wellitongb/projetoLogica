@@ -1,6 +1,7 @@
 package cpu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Classe do algoritmo de escalonamento First Come, First Served.
@@ -13,6 +14,7 @@ public class AlgorithmFCFS extends Algorithm{
     //@ private represents Clog2 <- this.log2;
     private /*@ spec_public nullable @*/ final CriarLog3 log3; //@ in Clog3;
     //@ private represents Clog3 <- this.log3;
+    
     /**
      *Método construtor da classe AlgorithmFCFS.
      * @param pathFile Representa o caminho do arquivo processos.dat
@@ -114,6 +116,14 @@ public class AlgorithmFCFS extends Algorithm{
         }
     }
     
+    /*@ also
+    @		requires super.FilaEstadoNovo != null && super.nProcessosNovos <= super.nProcessos;
+    @		assignable super.FilaEstadoNovo;
+    @		assignable super.nProcessosNovos;
+    @		ensures super.FilaEstadoNovo.size() >= \old(super.FilaEstadoNovo.size());
+    @		ensures super.nProcessosNovos == super.FilaEstadoNovo.size();
+    @		ensures (super.timeSystem > 0) ==> (\forall int i; 0 <= i && i < super.FilaEstadoNovo.size(); super.FilaEstadoNovo.get(i).getlifeTime() == 0);
+    @*/
     @Override
     protected void novo() {
         if(super.nProcessosNovos <= super.nProcessos){
@@ -135,10 +145,12 @@ public class AlgorithmFCFS extends Algorithm{
     /**
      * Método responsável por rodar o algoritmo.
      */
+    /*@ also
+     @		requires this.log2 != null && this.log3 != null && super.memoryProcess != null && super.FilaEstadoFinalizado != null;
+     @		assignable super.timeSystem;
+     @		ensures super.timeSystem == \old(super.timeSystem) + super.FilaEstadoFinalizado.size();
+     @*/
 	@Override
-	/*@
-	 @ 
-	 @*/
     public void run() {
         do{
             novo();
@@ -147,9 +159,9 @@ public class AlgorithmFCFS extends Algorithm{
             espera();
             finalizado();
             super.timeSystem++;
-            this.log2.print(new ArrayList[]{super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado}, super.timeSystem);
+            this.log2.print(new ArrayList<ArrayList<Processo>>(Arrays.asList(super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado)), super.timeSystem);
         }while(super.memoryProcess.size() > super.FilaEstadoFinalizado.size());
-        this.log3.print(new ArrayList[]{super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado}, super.timeSystem,super.executionTimeTotal);
+        this.log3.print(new ArrayList<ArrayList<Processo>>(Arrays.asList(super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado)), super.timeSystem,super.executionTimeTotal);
     }   
     
     /**

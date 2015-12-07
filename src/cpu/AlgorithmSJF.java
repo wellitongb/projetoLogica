@@ -1,6 +1,7 @@
 package cpu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -149,7 +150,11 @@ public class AlgorithmSJF extends Algorithm{
     /**
      * Método responsável por rodar o algoritmo.
      */
-    @SuppressWarnings("unchecked")
+    /*@ also
+    @		requires this.log2 != null && this.log3 != null && super.memoryProcess != null && super.FilaEstadoFinalizado != null;
+    @		assignable super.timeSystem;
+    @		ensures super.timeSystem == \old(super.timeSystem) + super.FilaEstadoFinalizado.size();
+    @*/
 	@Override
     public void run() {
         do{
@@ -159,9 +164,9 @@ public class AlgorithmSJF extends Algorithm{
             espera();
             finalizado();
             super.timeSystem++;
-            this.log2.print(new ArrayList[]{super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado}, super.timeSystem);
+            this.log2.print(new ArrayList<ArrayList<Processo>>(Arrays.asList(super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado)), super.timeSystem);
         }while(super.memoryProcess.size() > super.FilaEstadoFinalizado.size());
-        this.log3.print(new ArrayList[]{super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado}, super.timeSystem, super.executionTimeTotal);
+        this.log3.print(new ArrayList<ArrayList<Processo>>(Arrays.asList(super.FilaEstadoPronto,super.FilaEstadoEspera,super.FilaEstadoFinalizado)), super.timeSystem, super.executionTimeTotal);
     }   
     
     /**
