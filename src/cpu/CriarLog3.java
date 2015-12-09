@@ -20,14 +20,23 @@ import java.util.logging.Logger;
  * @author wellitongb
  */
 public class CriarLog3 {
-    private final File diretorio = new File("."); 
-    private FileWriter arquivo;
-    private PrintWriter output;
-    private final String nome;
+	private /*@ spec_public nullable @*/ final File diretorio = new File("."); 
+    private /*@ spec_public nullable @*/ FileWriter arquivo;
+    private /*@ spec_public nullable @*/ PrintWriter output;
+    private /*@ spec_public nullable @*/ final String nome;
+    
+    
     /**
      *Método construtor da classe CriarLog1.
      * @param typeLog Representa o nome do algoritmo usado para criar o log.
      */
+    /*@ requires typeLog != null;
+    @ 	assignable this.arquivo;
+    @	assignable this.output;
+    @	ensures this.arquivo != null;
+    @	ensures this.output != null;
+    @	ensures this.nome == typeLog;
+	@*/
     public CriarLog3(String typeLog){
         openFile(typeLog);
         this.nome = typeLog;
@@ -39,6 +48,14 @@ public class CriarLog3 {
         this.output.println("* VICTOR SANTIAGO VALENTE");
         this.output.println("**********************************/");
     }
+    
+    /*@ private normal_behavior
+    @	requires typeLog != null;
+    @ 	assignable this.arquivo;
+    @	assignable this.output;
+    @	ensures this.arquivo != null;
+    @	ensures this.output != null;
+    @*/
     private void openFile(String typeLog){
         try{
             this.arquivo = new FileWriter(this.diretorio.getAbsolutePath().substring(0, this.diretorio.getAbsolutePath().length() - 1).concat(typeLog + " - LOG3.log"));
@@ -49,12 +66,17 @@ public class CriarLog3 {
             Logger.getLogger(CriarLog1.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
+    
     /**
      * Método responsável por fechar o arquivo de log aberto.
      */
-    public void close(){
+    /*@	requires this.output != null;
+    @ assignable \nothing;
+    @*/
+    public/*@ pure @*/ void close(){
         this.output.close();
     }
+    
     /**
      * Método que imprimi as informações do processo exigidas para o primeiro LOG.
      * @param filas Representa as filas de PRONTO,ESPERA,FINALIZADO.
@@ -63,7 +85,12 @@ public class CriarLog3 {
      * @throws NullPointerException Caso filas seja nulo.
      * @throws Error Caso o tamanho de filas seja diferente de 3.
      */
-    public void print(ArrayList<ArrayList<Processo>> filas, int timeSystem, int executionTimeTotal){
+    /*@ requires filas != null && filas.size() == 3;
+    @	requires timeSystem > 0 && executionTimeTotal > 0;
+    @	requires filas.get(2) != null;
+    @	assignable \nothing;
+    @*/
+    public /*@ pure @*/ void print(ArrayList<ArrayList<Processo>> filas, int timeSystem, int executionTimeTotal){
         if(filas == null){
             throw new NullPointerException("Não foi passado as filas exigidas para impressão");
         }

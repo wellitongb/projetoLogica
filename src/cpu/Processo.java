@@ -11,9 +11,9 @@ public class Processo {
     public static final int FINALIZADO = 4;
     private /*@ spec_public @*/ int PID = 0,tempoDeChegada = 0, estado = 0, lifeTime = 0, nPicos = 0, picoAtualIndex = 0,picoAtualValue = 0, IOserviceTime = 0;
     private /*@ spec_public nullable @*/ int[] picos;
-    private /*@ spec_public @*/ int aux = 0;
+    //@ public int aux2;
     
-    //@ public invariant 0 <= aux;
+    //@ public invariant 0 <= 0; 
     //@ public invariant 0 <= PID; 
     //@ public invariant 0 <= tempoDeChegada;
     //@ public invariant 0 <= estado;
@@ -201,30 +201,27 @@ public class Processo {
     }
     
     /*@ requires 0 < this.picos.length;
-     @  assignable this.aux;
-     @  ensures this.aux == 0;
-     @  ensures (\forall int i; 0 < i && i <= this.picos.length; this.aux == \old(this.aux) + this.picos[i]);
-     @  ensures \result == this.aux;  
+     @  assignable \nothing;
+     @  ensures \result == aux2;  
      @*/
-    public int getTimeUseCPU(){
-        this.aux = 0;
+    public int getTimeUseCPU(){ 
+        int aux = 0;        
+        
         for(int i = 0; i < this.picos.length; i++){
-            this.aux = this.aux + this.picos[i];
+            aux = aux + this.picos[i];
         }
-        return this.aux;
+        //@ aux2 = aux;
+        return aux;
     }
     
     /*@ 	requires this.estado == 4 && (0 < this.picos.length); 
-     @  	assignable this.aux; 
-     @  	ensures this.aux == 0;
-     @  	ensures (\forall int i; 0 < i && i <= this.picos.length; this.aux == \old(this.aux) + this.picos[i]);
-     @  	ensures \result == this.aux + this.IOserviceTime;
+     @  	ensures \result == aux2 + this.IOserviceTime;
      @	also
      @		requires this.estado != 4;
      @		ensures \result == -1;
      @*/	
     public int getTimeExecutionGeral(){
-        if(this.estado == FINALIZADO){           
+        if(this.estado == FINALIZADO){
             return this.IOserviceTime + getTimeUseCPU();
         }
         return -1;

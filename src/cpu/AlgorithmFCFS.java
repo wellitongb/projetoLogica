@@ -119,10 +119,10 @@ public class AlgorithmFCFS extends Algorithm{
     /*@ also
     @		requires super.FilaEstadoNovo != null && super.nProcessosNovos <= super.nProcessos;
     @		assignable super.FilaEstadoNovo;
-    @		assignable super.nProcessosNovos;
+    @		assignable super.nProcessosNovos; 
     @		ensures super.FilaEstadoNovo.size() >= \old(super.FilaEstadoNovo.size());
     @		ensures super.nProcessosNovos == super.FilaEstadoNovo.size();
-    @		ensures (super.timeSystem > 0) ==> (\forall int i; 0 <= i && i < super.FilaEstadoNovo.size(); super.FilaEstadoNovo.get(i).getlifeTime() == 0);
+    @		ensures (super.timeSystem > 0) ==> (\forall int i; 0 <= i && i < super.FilaEstadoNovo.size(); super.FilaEstadoNovo.get(i) != null);
     @*/
     @Override
     protected void novo() {

@@ -13,18 +13,9 @@ import java.util.logging.Logger;
  * @author wellitongb
  */
 public class CriarLog1 {
-    private /*@ spec_public @*/ final File diretorio = new File("."); 
+    private /*@ spec_public nullable @*/ final File diretorio = new File("."); 
     private /*@ spec_public nullable @*/ FileWriter arquivo;
     private /*@ spec_public nullable @*/ PrintWriter output;
-    
-    /*@ public invariant arquivo != null
-     @ && diretorio.exists();
-     @*/
-    
-    /*@ public invariant output != null
-    @ && arquivo != null
-    @ && diretorio.exists();
-    @*/
     
     
     /**
