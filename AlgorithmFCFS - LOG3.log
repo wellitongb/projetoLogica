@@ -1,0 +1,16 @@
+/*********************************
+* Componentes do Grupo: 
+* ELISIO BRENO GARCIA CARDOSO
+* JOSE WELLITON NUNES JUNIOR
+* MOISES CAVALCANTE FERNANDES
+* VICTOR SANTIAGO VALENTE
+**********************************/
+Algoritmo de escalonamento usado: AlgorithmFCFS
+Valor atual do Ciclo de CPU: 35020
+Tempo medio de Processamento: 1871
+Tempo medio de Espera: 124
+Tempo medio de Turnaround: 21257
+Tempo total de ultilizacao da CPU: 34720
+Taxa percentual da ocupacao da CPU: 99.144%
+Tempo que a CPU permaneceu ociosa: 300
+Taxa percentual da ociosidade da CPU: 0.857%

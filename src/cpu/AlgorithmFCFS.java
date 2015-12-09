@@ -34,6 +34,7 @@ public class AlgorithmFCFS extends Algorithm{
     
     /*@ also
     @			requires super.FilaEstadoEspera != null;
+    @			requires super.ProcessoEstadoExecutando != null;
     @			requires (super.ProcessoEstadoExecutando.getNPicos() - 1) > super.ProcessoEstadoExecutando.getPicoAtualIndex();
     @			requires super.ProcessoEstadoExecutando.getPicoAtualValue() == super.executionTime;
     @			assignable super.executionTime;
