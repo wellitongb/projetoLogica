@@ -34,7 +34,7 @@ public class AlgorithmFCFS extends Algorithm{
     
     /*@ also
     @			requires super.FilaEstadoEspera != null;
-    @			requires (super.ProcessoEstadoExecutando.getNPicos() - 1) == super.ProcessoEstadoExecutando.getPicoAtualIndex();
+    @			requires (super.ProcessoEstadoExecutando.getNPicos() - 1) > super.ProcessoEstadoExecutando.getPicoAtualIndex();
     @			requires super.ProcessoEstadoExecutando.getPicoAtualValue() == super.executionTime;
     @			assignable super.executionTime;
     @			assignable super.ProcessoEstadoExecutando;
@@ -217,10 +217,10 @@ public class AlgorithmFCFS extends Algorithm{
      * Metodo responsavel por rodar o algoritmo.
      */
     /*@ also
-     @		requires this.log2 != null && this.log3 != null && super.memoryProcess != null && super.FilaEstadoFinalizado != null;
-     @		assignable super.timeSystem;
-     @		ensures super.timeSystem == \old(super.timeSystem) + super.FilaEstadoFinalizado.size();
-     @*/
+    @		requires this.log2 != null && this.log3 != null && super.memoryProcess != null && super.FilaEstadoFinalizado != null;
+    @		assignable super.timeSystem;
+    @		ensures (super.memoryProcess.size() == super.FilaEstadoFinalizado.size()) ==> super.timeSystem > \old(super.timeSystem);
+    @*/
 	@Override
     public void run() {
         do{

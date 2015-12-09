@@ -28,37 +28,39 @@ public abstract class Algorithm {
     //@ public invariant 0 <= FilaEstadoEspera.size();
     //@ public invariant 0 <= FilaEstadoNovo.size();
     
-    /*@ public invariant memoryProcess != null
+    /*@ public invariant memoryProcess != null && memoryProcess.size() >= 0
     @ && (\forall int i;
     @ i >= 0 && i < memoryProcess.size();
     @ memoryProcess.get(i) != null);
     @*/
     
-    /*@ public invariant FilaEstadoPronto != null
+    /*@ public invariant FilaEstadoPronto != null && FilaEstadoPronto.size() >= 0
     @ && (\forall int i;
     @ i >= 0 && i < FilaEstadoPronto.size();
     @ FilaEstadoPronto.get(i) != null);
     @*/
     
-    /*@ public invariant FilaEstadoFinalizado != null
+    /*@ public invariant FilaEstadoFinalizado != null && FilaEstadoFinalizado.size() >= 0
     @ && (\forall int i;
     @ i >= 0 && i < FilaEstadoFinalizado.size();
     @ FilaEstadoFinalizado.get(i) != null);
     @*/
     
-    /*@ public invariant FilaEstadoEspera != null
+    /*@ public invariant FilaEstadoEspera != null && FilaEstadoEspera.size() >= 0
     @ && (\forall int i;
     @ i >= 0 && i < FilaEstadoEspera.size();
     @ FilaEstadoEspera.get(i) != null);
     @*/
     
-    /*@ public invariant FilaEstadoNovo != null
+    /*@ public invariant FilaEstadoNovo != null && FilaEstadoNovo.size() >= 0
     @ && (\forall int i;
     @ i >= 0 && i < FilaEstadoNovo.size();
     @ FilaEstadoNovo.get(i) != null);
     @*/
     
     protected /*@ spec_public nullable @*/ Processo ProcessoEstadoExecutando;
+    
+    //@ public invariant ProcessoEstadoExecutando != null || ProcessoEstadoExecutando == null;
     
     protected /*@ spec_public @*/ int nProcessos = 0, nProcessosNovos = 0, nProcessosNoSistema = 0;
     

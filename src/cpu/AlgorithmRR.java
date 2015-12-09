@@ -15,6 +15,8 @@ public class AlgorithmRR extends Algorithm{
     //@ private represents Clog2 <- this.log2;
     private /*@ spec_public nullable @*/ final CriarLog3 log3; //@ in Clog3;
     //@ private represents Clog3 <- this.log3;
+    
+    //@ public invariant 0 <= quantum;
     /**
      * Metodo Construtor da Classe AlgorithmRR.
      * @param pathFile Representa o caminho do arquivo "processos.dat". 
@@ -37,7 +39,7 @@ public class AlgorithmRR extends Algorithm{
     
     /*@ also
     @			requires super.FilaEstadoEspera != null;
-    @			requires (super.ProcessoEstadoExecutando.getNPicos() - 1) == super.ProcessoEstadoExecutando.getPicoAtualIndex();
+    @			requires (super.ProcessoEstadoExecutando.getNPicos() - 1) > super.ProcessoEstadoExecutando.getPicoAtualIndex();
     @			requires super.ProcessoEstadoExecutando.getPicoAtualValue() == super.executionTime;
     @			requires super.ProcessoEstadoExecutando.getPicoAtualValue() <= quantum;
     @			assignable super.executionTime;
@@ -235,7 +237,7 @@ public class AlgorithmRR extends Algorithm{
     /*@ also
     @		requires this.log2 != null && this.log3 != null && super.memoryProcess != null && super.FilaEstadoFinalizado != null;
     @		assignable super.timeSystem;
-    @		ensures super.timeSystem == \old(super.timeSystem) + super.FilaEstadoFinalizado.size();
+    @		ensures (super.memoryProcess.size() == super.FilaEstadoFinalizado.size()) ==> super.timeSystem > \old(super.timeSystem);
     @*/
 	@Override
     public void run() {
