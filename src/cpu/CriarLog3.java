@@ -27,7 +27,7 @@ public class CriarLog3 {
     
     
     /**
-     *Método construtor da classe CriarLog1.
+     *Metodo construtor da classe CriarLog1.
      * @param typeLog Representa o nome do algoritmo usado para criar o log.
      */
     /*@ requires typeLog != null;
@@ -42,9 +42,9 @@ public class CriarLog3 {
         this.nome = typeLog;
         this.output.println("/*********************************");
         this.output.println("* Componentes do Grupo: ");
-        this.output.println("* ELÍSIO BRENO GARCIA CARDOSO");
-        this.output.println("* JOSÉ WELLITON NUNES JUNIOR");
-        this.output.println("* MOISÉS CAVALCANTE FERNANDES");
+        this.output.println("* ELISIO BRENO GARCIA CARDOSO");
+        this.output.println("* JOSE WELLITON NUNES JUNIOR");
+        this.output.println("* MOISES CAVALCANTE FERNANDES");
         this.output.println("* VICTOR SANTIAGO VALENTE");
         this.output.println("**********************************/");
     }
@@ -68,7 +68,7 @@ public class CriarLog3 {
     }
     
     /**
-     * Método responsável por fechar o arquivo de log aberto.
+     * Metodo responsavel por fechar o arquivo de log aberto.
      */
     /*@	requires this.output != null;
     @ assignable \nothing;
@@ -78,7 +78,7 @@ public class CriarLog3 {
     }
     
     /**
-     * Método que imprimi as informações do processo exigidas para o primeiro LOG.
+     * Metodo que imprimi as informacoes do processo exigidas para o primeiro LOG.
      * @param filas Representa as filas de PRONTO,ESPERA,FINALIZADO.
      * @param timeSystem Representa o tempo do sistema.
      * @param executionTimeTotal
@@ -92,10 +92,10 @@ public class CriarLog3 {
     @*/
     public /*@ pure @*/ void print(ArrayList<ArrayList<Processo>> filas, int timeSystem, int executionTimeTotal){
         if(filas == null){
-            throw new NullPointerException("Não foi passado as filas exigidas para impressão");
+            throw new NullPointerException("Nao foi passado as filas exigidas para impressao");
         }
         if(filas.size() != 3){
-            throw new Error("Não foi passado o numero de filas exigidas para impressão");
+            throw new Error("Nao foi passado o numero de filas exigidas para impressao");
         }
         else{
             this.output.println("Algoritmo de escalonamento usado: " + this.nome);
@@ -106,11 +106,11 @@ public class CriarLog3 {
                 sumTimeWait = sumTimeWait + element.getIOserviceTime();
                 sumTimeTurnaround = sumTimeTurnaround + element.getLifeTime();
             }
-            this.output.println("Tempo médio de Processamento: " + (sumTimeExecutionGeral/filas.get(2).size()));
-            this.output.println("Tempo médio de Espera: " + (sumTimeWait/filas.get(2).size()));
-            this.output.println("Tempo médio de Turnaround: " + (sumTimeTurnaround/filas.get(2).size()));
-            this.output.println("Tempo total de ultilização da CPU: " + executionTimeTotal);
-            this.output.print("Taxa percentual da ocupação da CPU: ");
+            this.output.println("Tempo medio de Processamento: " + (sumTimeExecutionGeral/filas.get(2).size()));
+            this.output.println("Tempo medio de Espera: " + (sumTimeWait/filas.get(2).size()));
+            this.output.println("Tempo medio de Turnaround: " + (sumTimeTurnaround/filas.get(2).size()));
+            this.output.println("Tempo total de ultilizacao da CPU: " + executionTimeTotal);
+            this.output.print("Taxa percentual da ocupacao da CPU: ");
             BigDecimal aux = new BigDecimal(executionTimeTotal*100).divide(new BigDecimal(timeSystem),3,RoundingMode.UP);
             this.output.print(aux); 
             this.output.println("%");

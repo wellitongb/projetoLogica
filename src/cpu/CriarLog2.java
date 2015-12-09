@@ -23,7 +23,7 @@ public class CriarLog2 {
     private /*@ spec_public nullable @*/ PrintWriter output;
     
     /**
-     *Método construtor da classe CriarLog1.
+     *Metodo construtor da classe CriarLog1.
      * @param typeLog Representa o nome do algoritmo usado para criar o log.
      */
     /*@ requires typeLog != null;
@@ -36,9 +36,9 @@ public class CriarLog2 {
         openFile(typeLog);
         this.output.println("/*********************************");
         this.output.println("* Componentes do Grupo: ");
-        this.output.println("* ELÍSIO BRENO GARCIA CARDOSO");
-        this.output.println("* JOSÉ WELLITON NUNES JUNIOR");
-        this.output.println("* MOISÉS CAVALCANTE FERNANDES");
+        this.output.println("* ELISIO BRENO GARCIA CARDOSO");
+        this.output.println("* JOSE WELLITON NUNES JUNIOR");
+        this.output.println("* MOISES CAVALCANTE FERNANDES");
         this.output.println("* VICTOR SANTIAGO VALENTE");
         this.output.println("**********************************/");
     }
@@ -69,7 +69,7 @@ public class CriarLog2 {
     }
     
     /**
-     * Método que imprimi as informações do processo exigidas para o primeiro LOG.
+     * Metodo que imprimi as informacoes do processo exigidas para o primeiro LOG.
      * @param filas Representa as filas de PRONTO,ESPERA,FINALIZADO.
      * @param timeSystem Representa o tempo do sistema.
      * @throws NullPointerException Caso filas seja nulo.
@@ -81,10 +81,10 @@ public class CriarLog2 {
     @*/
     public /*@ pure @*/ void print(ArrayList<ArrayList<Processo>> filas, int timeSystem){
         if(filas == null){
-            throw new NullPointerException("Não foi passado as filas exigidas para impressão");
+            throw new NullPointerException("Nao foi passado as filas exigidas para impressao");
         }
         if(filas.size() != 3){
-            throw new Error("Não foi passado o numero de filas exigidas para impressão");
+            throw new Error("Nao foi passado o numero de filas exigidas para impressao");
         }
         if(timeSystem%200 == 0){
             this.output.print(filas.get(0).size() + " ");

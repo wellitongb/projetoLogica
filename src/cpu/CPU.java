@@ -12,18 +12,18 @@ public class CPU {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        File diretorio = new File("."); //objeto que contÈm o caminho do diretorio principal
+        File diretorio = new File("."); //objeto que contem o caminho do diretorio principal
         File arquivo = new File(diretorio.getAbsolutePath().substring(0, diretorio.getAbsolutePath().length() - 1).concat("processos.dat"));
-        //objeto que contÈm o arquivo .dat a ser lido, no diretorio principal.
-        Algorithm algorithm = new AlgorithmRR(arquivo.getAbsolutePath(), 123); // inicializa√ß√£o do objeto da classe AlgorithmRR
+        //objeto que contem o arquivo .dat a ser lido, no diretorio principal.
+        Algorithm algorithm = new AlgorithmRR(arquivo.getAbsolutePath(), 123); // inicializaaßa£o do objeto da classe AlgorithmRR
         algorithm.run(); // executa o algoritmo.
         algorithm.close(); // fecha os arquivos de logs criados.
         
-        algorithm = new AlgorithmFCFS(arquivo.getAbsolutePath());// inicializa√ß√£o do objeto da classe AlgorithmFCFS
+        algorithm = new AlgorithmFCFS(arquivo.getAbsolutePath());// inicializaaßa£o do objeto da classe AlgorithmFCFS
         algorithm.run(); // executa o algoritmo
         algorithm.close(); // fecha os arquivos de logs criados.
         
-        algorithm = new AlgorithmSJF(arquivo.getAbsolutePath());// inicializa√ß√£o do objeto da classe AlgorithmSJF
+        algorithm = new AlgorithmSJF(arquivo.getAbsolutePath());// inicializaaßa£o do objeto da classe AlgorithmSJF
         algorithm.run(); // executa o algoritmo.
         algorithm.close(); // fecha os arquivos de logs criados.
     }

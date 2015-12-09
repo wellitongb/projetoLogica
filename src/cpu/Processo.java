@@ -1,18 +1,18 @@
 package cpu;
 
 /**
- * @author José Welliton Nunes Júnior
+ * @author Jose Welliton Nunes Junior
  */
-public class Processo { 
+public class Processo {
     public static final int NOVO = 0;
     public static final int PRONTO = 1;
     public static final int EXECUTANDO = 2;
     public static final int ESPERA = 3;
     public static final int FINALIZADO = 4;
-    private /*@ spec_public @*/ int PID = 0,tempoDeChegada = 0, estado = 0, lifeTime = 0, nPicos = 0, picoAtualIndex = 0,picoAtualValue = 0, IOserviceTime = 0;
+    private /*@ spec_public @*/ int PID = 0,tempoDeChegada = 0, estado = 0, lifeTime = 0, nPicos = 0, picoAtualIndex = 0,picoAtualValue = 0, IOserviceTime = 0, aux = 0;
     private /*@ spec_public nullable @*/ int[] picos;
-    //@ public int aux2;
     
+    //@ public invariant 0 <= aux;
     //@ public invariant 0 <= 0; 
     //@ public invariant 0 <= PID; 
     //@ public invariant 0 <= tempoDeChegada;
@@ -29,7 +29,7 @@ public class Processo {
     
  
     /**
-     * Método Contrutor da Classe Processo.
+     * Metodo Contrutor da Classe Processo.
      * @param PID Parâmetro que representa o ID do processo.
      * @param tempoDeChegada Parâmetro que representa o tempo de Chegada do Processo.
      * @param nPicos Parâmetro que representa o numero picos de tempo para processamento.
@@ -52,7 +52,7 @@ public class Processo {
     }
 
     /**
-     * Método set para a variável estado.
+     * Metodo set para a variavel estado.
      * @param estado
      */
     /*@ requires 0 <= estado && estado < 5;
@@ -64,7 +64,7 @@ public class Processo {
     }
     
     /**
-     * Método set para modificar o valor do pico atual, caso precise.
+     * Metodo set para modificar o valor do pico atual, caso precise.
      * @param pico Parâmetro que representa valor do pico.
      */
     /*@ requires 0 <= pico;
@@ -76,7 +76,7 @@ public class Processo {
     }
 
     /**
-     * Método set para modificar o valor de qualquer pico, caso precise.
+     * Metodo set para modificar o valor de qualquer pico, caso precise.
      * @param index Parâmetro que representa o indice do pico.
      * @param pico Parâmetro que representa o valor do pico.
      */
@@ -89,7 +89,7 @@ public class Processo {
     }
 
     /**
-     * Método que incrementa o valor da variável LifeTime em mais um.
+     * Metodo que incrementa o valor da variavel LifeTime em mais um.
      */
     /*@ requires 0 <= this.lifeTime;
   	 @	assignable this.lifeTime;
@@ -100,7 +100,7 @@ public class Processo {
     }
 
     /**
-     * Método que incrementa o valor da variável IOServiceTime em mais um.
+     * Metodo que incrementa o valor da variavel IOServiceTime em mais um.
      */
     /*@ requires 0 <= this.IOserviceTime;
  	 @	assignable this.IOserviceTime;
@@ -111,7 +111,7 @@ public class Processo {
     }
        
     /**
-     * Método que incrementa o valor do índice do vetor de picos.
+     * Metodo que incrementa o valor do indice do vetor de picos.
      */
     /*@ 	requires 0 <= this.nPicos && this.picoAtualIndex < this.nPicos;
 	 @		assignable this.picoAtualIndex;
@@ -129,7 +129,7 @@ public class Processo {
     }
     
     /**
-     * Método get para a variável tempoDeChegada.
+     * Metodo get para a variavel tempoDeChegada.
      * @return Retorna valor inteiro que representa o tempo de chegada.
      */
     //@ ensures \result == this.tempoDeChegada;
@@ -138,7 +138,7 @@ public class Processo {
     }
     
     /**
-     * Método get para a variável PID.
+     * Metodo get para a variavel PID.
      * @return Retorna valor inteiro que representa o ID do processo.
      */
     //@ ensures \result == this.PID;
@@ -147,7 +147,7 @@ public class Processo {
     }
 
     /**
-     * Método get da variável IOServiceTime.
+     * Metodo get da variavel IOServiceTime.
      * @return Retorna valor inteiro que representa o tempo de espera na fila de espera.
      */
     //@ ensures \result == this.IOserviceTime;
@@ -156,7 +156,7 @@ public class Processo {
     }
     
     /**
-     * Método get da variável Estado.  
+     * Metodo get da variavel Estado.  
      * @return Retorna valor inteiro que representa o estado atual do processo.
      */
     //@ ensures \result == this.estado;
@@ -165,8 +165,8 @@ public class Processo {
     }
 
     /**
-     * Método get da variavel picoAtualIndex.
-     * @return Retorna um inteiro que representa a posição, no vetor de picos, do pico atual.
+     * Metodo get da variavel picoAtualIndex.
+     * @return Retorna um inteiro que representa a posicao, no vetor de picos, do pico atual.
      */
     //@ ensures \result == this.picoAtualIndex;
     public /*@ pure @*/ int getPicoAtualIndex() {
@@ -174,7 +174,7 @@ public class Processo {
     }
     
     /**
-     * Método get do valor do pico Atual.
+     * Metodo get do valor do pico Atual.
      * @return Retorna um inteiro que representa o valor do pico atual.
      */
     //@ ensures \result == this.picoAtualValue;
@@ -183,7 +183,7 @@ public class Processo {
     }
             
     /**
-     * Método get da variável LifeTime.
+     * Metodo get da variavel LifeTime.
      * @return Retorna um inteiro que representa o valor do tempo de vida (tempo no sistema) do processo.
      */
     //@ ensures \result == this.lifeTime;
@@ -192,7 +192,7 @@ public class Processo {
     }
 
     /**
-     * Método get da variável nPicos.
+     * Metodo get da variavel nPicos.
      * @return Retorna um inteiro que representa o valor do numero de picos total desse processo.
      */
     //@ ensures \result == this.nPicos;
@@ -201,21 +201,20 @@ public class Processo {
     }
     
     /*@ requires 0 < this.picos.length;
-     @  assignable \nothing;
-     @  ensures \result == aux2;  
+     @  assignable this.aux;
+     @	ensures aux > 0;
+     @  ensures \result == aux;  
      @*/
     public int getTimeUseCPU(){ 
-        int aux = 0;        
-        
+        this.aux = 0;        
         for(int i = 0; i < this.picos.length; i++){
-            aux = aux + this.picos[i];
+            this.aux = this.aux + this.picos[i];
         }
-        //@ aux2 = aux;
-        return aux;
+        return this.aux;
     }
     
     /*@ 	requires this.estado == 4 && (0 < this.picos.length); 
-     @  	ensures \result == aux2 + this.IOserviceTime;
+     @  	ensures \result == this.aux + this.IOserviceTime;
      @	also
      @		requires this.estado != 4;
      @		ensures \result == -1;

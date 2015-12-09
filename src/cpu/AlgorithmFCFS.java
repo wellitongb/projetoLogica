@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 /**
  * Classe do algoritmo de escalonamento First Come, First Served.
- * @author JOSÉ WELLITON NUNES JUNIOR
+ * @author JOSE WELLITON NUNES JUNIOR
  */
 public class AlgorithmFCFS extends Algorithm{
     private /*@ spec_public nullable @*/ final CriarLog1 log1; //@ in Clog1;
@@ -16,16 +16,37 @@ public class AlgorithmFCFS extends Algorithm{
     //@ private represents Clog3 <- this.log3;
     
     /**
-     *Método construtor da classe AlgorithmFCFS.
+     *Metodo construtor da classe AlgorithmFCFS.
      * @param pathFile Representa o caminho do arquivo processos.dat
      */
+    /*@	requires pathFile != null;
+    @ 	assignable this.log1;
+    @	assignable this.log2;
+    @	assignable this.log3;
+    @	ensures this.log1 != null && this.log2 !=null && this.log3 !=null;
+    @*/
     public AlgorithmFCFS(String pathFile){
         super(pathFile);
         log1 = new CriarLog1("AlgorithmFCFS");
         log2 = new CriarLog2("AlgorithmFCFS");
         log3 = new CriarLog3("AlgorithmFCFS");
     }
-
+    
+    /*@ also
+    @			requires super.FilaEstadoEspera != null;
+    @			requires (super.ProcessoEstadoExecutando.getNPicos() - 1) == super.ProcessoEstadoExecutando.getPicoAtualIndex();
+    @			requires super.ProcessoEstadoExecutando.getPicoAtualValue() == super.executionTime;
+    @			assignable super.executionTime;
+    @			assignable super.ProcessoEstadoExecutando;
+    @			assignable super.FilaEstadoEspera; 
+    @			ensures super.executionTimeTotal == \old(super.executionTimeTotal) + \old(super.executionTime);
+    @			ensures super.executionTime == 0;
+    @			ensures super.FilaEstadoEspera.size() == \old(super.FilaEstadoEspera.size() + 1);
+    @			ensures super.ProcessoEstadoExecutando == null;
+    @		also
+   	@			requires true;
+   	@			assignable \nothing;
+    @*/
     @Override
     protected void espera() {
         if(super.ProcessoEstadoExecutando != null){
@@ -48,7 +69,18 @@ public class AlgorithmFCFS extends Algorithm{
             }
         }
     }
-
+    
+    /*@ also
+    @			requires \same;
+    @			assignable super.executionTime;
+    @			assignable super.ProcessoEstadoExecutando;
+    @			assignable super.FilaEstadoPronto; 
+    @			ensures (super.ProcessoEstadoExecutando == null) ==> ((!super.FilaEstadoPronto.isEmpty()) ==> (super.FilaEstadoPronto.size() == \old(super.FilaEstadoPronto.size() - 1) && (super.ProcessoEstadoExecutando != null)));
+    @			ensures (super.ProcessoEstadoExecutando != null) ==> ((\old(super.executionTime) > 0) ==> (super.executionTime == \old(super.executionTime + 1)));
+    @		also
+   	@			requires true;
+   	@			assignable \nothing;
+    @*/
     @Override
     protected void executar() {
         if(super.ProcessoEstadoExecutando == null){
@@ -63,7 +95,30 @@ public class AlgorithmFCFS extends Algorithm{
             super.executionTime++;
         }
     }
-
+    
+    /*@ also
+    @			requires super.FilaEstadoNovo != null && super.FilaEstadoFinalizado != null && super.FilaEstadoEspera != null && super.FilaEstadoPronto != null && super.ProcessoEstadoExecutando != null;
+    @			assignable super.nProcessosNoSistema; 
+    @			assignable super.nProcessosNovos;
+	@			assignable super.FilaEstadoNovo;
+	@			assignable super.FilaEstadoFinalizado; 
+	@ 			assignable super.FilaEstadoEspera;
+	@			assignable super.FilaEstadoPronto; 
+	@			assignable super.ProcessoEstadoExecutando;
+    @			ensures (super.timeSystem == 0) ==> 
+    @					super.FilaEstadoNovo.size() == \old(super.FilaEstadoNovo.size() - 10) &&
+    @					super.FilaEstadoPronto.size() == \old(super.FilaEstadoPronto.size() + 10) &&
+    @					super.nProcessosNovos == \old(nProcessosNovos - 10) &&
+    @					super.nProcessosNoSistema == \old(nProcessosNoSistema + 10);
+    @			ensures (super.timeSystem != 0) ==> 
+    @					((!super.FilaEstadoFinalizado.isEmpty()) ==> 
+    @						(super.nProcessosNovos == \old(super.nProcessosNovos) - (super.nProcessosNoSistema - \old(super.nProcessosNoSistema)))) &&
+    @					((!super.FilaEstadoEspera.isEmpty()) ==> 
+    @						(super.FilaEstadoPronto.size() == \old(super.FilaEstadoPronto.size()) + (\old(super.FilaEstadoEspera.size()) - super.FilaEstadoEspera.size())));
+    @		also
+   	@			requires true;
+   	@			assignable \nothing;			
+    @*/
     @Override
     protected void pronto() {
         if(super.timeSystem == 0){
@@ -99,7 +154,23 @@ public class AlgorithmFCFS extends Algorithm{
             }
         }
     }
-
+    
+    /*@ also
+    @			requires super.FilaEstadoFinalizado != null && super.ProcessoEstadoExecutando != null;
+    @			requires (super.ProcessoEstadoExecutando.getNPicos() - 1) == super.ProcessoEstadoExecutando.getPicoAtualIndex();
+    @			requires super.ProcessoEstadoExecutando.getPicoAtualValue() == super.executionTime;
+    @			assignable super.executionTimeTotal;
+    @			assignable super.executionTime;
+    @			assignable super.ProcessoEstadoExecutando;
+    @			assignable super.FilaEstadoFinalizado; 
+    @			ensures super.executionTimeTotal == \old(super.executionTimeTotal) + \old(super.executionTime);
+    @			ensures super.executionTime == 0;
+    @			ensures super.FilaEstadoFinalizado.size() == \old(super.FilaEstadoFinalizado.size() + 1);
+    @			ensures super.ProcessoEstadoExecutando == null;
+    @		also
+   	@			requires true;
+   	@			assignable \nothing;
+    @*/
     @Override
     protected void finalizado() {
         if(super.ProcessoEstadoExecutando != null){
@@ -122,7 +193,7 @@ public class AlgorithmFCFS extends Algorithm{
     @		assignable super.nProcessosNovos; 
     @		ensures super.FilaEstadoNovo.size() >= \old(super.FilaEstadoNovo.size());
     @		ensures super.nProcessosNovos == super.FilaEstadoNovo.size();
-    @		ensures (super.timeSystem > 0) ==> (\forall int i; 0 <= i && i < super.FilaEstadoNovo.size(); super.FilaEstadoNovo.get(i) != null);
+    @		ensures (\forall int i; 0 <= i && i < super.nProcessosNovos; super.FilaEstadoNovo.get(i) != null);
     @*/
     @Override
     protected void novo() {
@@ -143,7 +214,7 @@ public class AlgorithmFCFS extends Algorithm{
     }
 
     /**
-     * Método responsável por rodar o algoritmo.
+     * Metodo responsavel por rodar o algoritmo.
      */
     /*@ also
      @		requires this.log2 != null && this.log3 != null && super.memoryProcess != null && super.FilaEstadoFinalizado != null;
@@ -165,7 +236,7 @@ public class AlgorithmFCFS extends Algorithm{
     }   
     
     /**
-     * Método responsável por fechar todos os arquivos de log abertos por esse algoritmo.
+     * Metodo responsavel por fechar todos os arquivos de log abertos por esse algoritmo.
      */
     @Override
     public /*@ pure @*/ void close(){

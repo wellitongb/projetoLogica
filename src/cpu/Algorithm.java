@@ -8,6 +8,9 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import cpu.AlgorithmFCFS;
+import cpu.Processo;
+
 public abstract class Algorithm {
 	//@ public model instance CriarLog1 Clog1;
 	//@ public model instance CriarLog2 Clog2;
@@ -64,7 +67,7 @@ public abstract class Algorithm {
     //@ public invariant 0 <= nProcessosNoSistema;
     
     /**
-     * Método construtor da classe Algorithm.
+     * Metodo construtor da classe Algorithm.
      * @param pathFile Representa o caminho do arquivo .dat a ser lido.
      */
     /*@ 	public normal_behavior
@@ -111,28 +114,28 @@ public abstract class Algorithm {
         } 
     }
     
-    /*@
-     @ 
-     @*/
+    /*@ requires this.FilaEstadoNovo != null && this.nProcessosNovos <= this.nProcessos;
+    @	assignable \nothing; 
+    @*/
     protected abstract void novo();
     
-    /*@
-    @ 
+    /*@ requires this.FilaEstadoEspera != null;
+   	@	assignable \nothing;
     @*/
     protected abstract void espera();
     
-    /*@
-    @ 
+    /*@ requires this.FilaEstadoPronto != null;
+   	@	assignable \nothing;
     @*/
     protected abstract void executar();
     
-    /*@
-    @ 
+    /*@ requires this.FilaEstadoNovo != null && this.FilaEstadoFinalizado != null && this.FilaEstadoEspera != null && this.FilaEstadoPronto != null && this.ProcessoEstadoExecutando != null;
+    @	assignable \nothing;			
     @*/
     protected abstract void pronto();
     
-    /*@
-    @ 
+    /*@	requires this.FilaEstadoFinalizado != null && this.ProcessoEstadoExecutando != null;
+    @	assignable \nothing;
     @*/
     protected abstract void finalizado();
     

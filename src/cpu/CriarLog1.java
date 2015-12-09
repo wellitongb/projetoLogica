@@ -1,4 +1,3 @@
-
 package cpu;
 
 import java.io.File;
@@ -9,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Classe responsável por criar o arquivo LOG1.log e imprimir as informações de cada processo nele.
+ * Classe responsavel por criar o arquivo LOG1.log e imprimir as informacoes de cada processo nele.
  * @author wellitongb
  */
 public class CriarLog1 {
@@ -19,7 +18,7 @@ public class CriarLog1 {
     
     
     /**
-     *Método construtor da classe CriarLog1.
+     *Metodo construtor da classe CriarLog1.
      * @param typeLog Representa o nome do algoritmo usado para criar o log.
      */
     /*@ requires typeLog != null;
@@ -33,8 +32,8 @@ public class CriarLog1 {
         this.output.println("/*********************************");
         this.output.println("* Componentes do Grupo: ");
         this.output.println("* ELISIO BRENO GARCIA CARDOSO");
-        this.output.println("* JOSÉ WELLITON NUNES JUNIOR");
-        this.output.println("* MOISÉS CAVALCANTE FERNANDES");
+        this.output.println("* JOSE WELLITON NUNES JUNIOR");
+        this.output.println("* MOISES CAVALCANTE FERNANDES");
         this.output.println("* VICTOR SANTIAGO VALENTE");
         this.output.println("**********************************/");
     }
@@ -64,10 +63,10 @@ public class CriarLog1 {
         this.output.close();
     }
     /**
-     * Método que imprimi as informações do processo exigidas para o primeiro LOG.
-     * @param process Representa o processo que será impresso as informações.
+     * Metodo que imprimi as informacoes do processo exigidas para o primeiro LOG.
+     * @param process Representa o processo que sera impresso as informacoes.
      * @param timeSystem Representa o tempo do sistema.
-     * @throws Error Caso o processo não esteja no estado FINALIZADO.
+     * @throws Error Caso o processo nao esteja no estado FINALIZADO.
      */
     /*@ requires process != null && process.getEstado() == 4;
      @	requires timeSystem > 0;
@@ -83,7 +82,7 @@ public class CriarLog1 {
             this.output.println(process.getLifeTime());
         }
         else{
-            throw new Error("Processo nÃ£o foi FINALIZADO");
+            throw new Error("Processo nao foi FINALIZADO");
         }
     }
 }
